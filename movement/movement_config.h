@@ -30,6 +30,7 @@
 const watch_face_t watch_faces[] = {
     simple_clock_face,
     world_clock_face,
+    world_clock_face,
     stock_stopwatch_face,
     alarm_face,
     timer_face,
@@ -54,7 +55,7 @@ const watch_face_t watch_faces[] = {
 #define MOVEMENT_SECONDARY_FACE_INDEX (MOVEMENT_NUM_FACES - 2) // or (0)
 
 /* Custom hourly chime tune. Check movement_custom_signal_tunes.h for options. */
-#define SIGNAL_TUNE_MARIO_THEME
+#define SIGNAL_TUNE_MELODY_RADIO
 
 /* Determines the intensity of the led colors
  * Set a hex value 0-15 with 0x0 being off and 0xF being max intensity

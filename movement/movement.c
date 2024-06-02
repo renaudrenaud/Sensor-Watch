@@ -333,6 +333,326 @@ static void end_buzzing_and_disable_buzzer(void) {
     watch_disable_buzzer();
 }
 
+// Default hourly chime tune, melody nb 1
+static int8_t melody_radio[] = {
+    BUZZER_NOTE_C6, 10,
+    BUZZER_NOTE_REST,10,
+    BUZZER_NOTE_C6, 10,
+    BUZZER_NOTE_REST,10,
+    BUZZER_NOTE_C6, 10,
+    BUZZER_NOTE_REST,10,
+    BUZZER_NOTE_E6, 20,
+    BUZZER_NOTE_REST,20,
+    0
+};
+
+// STAR WARS THEME, melody nb 2
+static int8_t star_wars_theme[] = {
+    BUZZER_NOTE_A4, 16,        // main note
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_A4, 16,
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_A4, 16,
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_F4, 12,        // Change note
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_C5, 12,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_A4, 16,
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_F4, 12,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_C5, 12,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_A4, 16,
+    BUZZER_NOTE_REST, 16,      //  pause
+    BUZZER_NOTE_E5, 16,        // new phrase 
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_E5, 16,
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_E5, 16,
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_F5, 12,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_C5, 12,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_A4, 16,
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_F4, 12,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_C5, 12,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_A4, 16,
+    0                      
+};
+
+
+// IMPERIAL_MARCH melody nb 3
+static int8_t imperial_march[] = {
+    BUZZER_NOTE_A4, 20,        // Ta
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_A4, 20,        // Ta
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_A4, 20,        // Ta
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_F4, 14,        // Ta-da
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_C5, 30,        // Da-dam
+    BUZZER_NOTE_REST, 10,
+    BUZZER_NOTE_A4, 20,        // Ta
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_F4, 14,        // Ta-da
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_C5, 30,        // Da-dam
+    BUZZER_NOTE_REST, 10,
+    BUZZER_NOTE_A4, 20,        // Ta
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_E5, 20,        // Ta
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_E5, 20,        // Ta
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_E5, 20,        // Ta
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_F5, 14,        // Ta-da
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_C5, 30,        // Da-dam
+    BUZZER_NOTE_REST, 10,
+    BUZZER_NOTE_A4, 20,        // Ta
+    BUZZER_NOTE_REST, 4,
+    BUZZER_NOTE_F4, 14,        // Ta-da
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_C5, 30,        // Da-dam
+    BUZZER_NOTE_REST, 10,
+    BUZZER_NOTE_A4, 20,        // Ta
+    0                          // 
+};
+
+// MISSION_IMPOSSIBLE melody nb 4
+int8_t mission_impossible[] = {
+    BUZZER_NOTE_E5, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_F5, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_E5, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_E5, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_A5, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_G5, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_E5, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_E5, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_B5, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_A5, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_E5, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_E5, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_C6, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_B5, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_A5, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_G5, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_E5, 8,        // Ta
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_E5, 8,        // Ta
+    0                          // Fin de la mélodie
+};
+
+
+// SIGNAL_TUNE_TAKE_FIVE nb 5
+static int8_t take_five[] = {
+    BUZZER_NOTE_E5, 14,        // Première note
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_D5, 14,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_C5, 14,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_B4, 14,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_A4, 14,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_E5, 14,        // Répétition
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_D5, 14,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_C5, 14,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_B4, 14,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_A4, 14,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_G4, 14,        // Descente
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_F4, 14,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_E4, 14,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_D4, 14,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_C4, 14,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_B3, 14,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_A3, 14,
+    0                      // Fin de la mélodie
+};
+
+// TUBULAR_BELLS melody nb 6
+static int8_t tubular_bells[] = {
+    BUZZER_NOTE_E5, 8,       
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_G5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_A5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_E5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_D5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_C5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_D5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_E5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_G5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_A5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_E5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_D5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_C5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_D5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_E5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_G5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_A5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_E5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_D5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_C5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_D5, 8,
+    0                      // Fin de la mélodie
+};
+
+// TUNE_OXYGENE_PART_IV melody nb 7
+static int8_t oxygene[] = {
+    BUZZER_NOTE_E5, 8,       // Première note
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_G5, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_A5, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_B5, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_A5, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_G5, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_E5, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_G5, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_A5, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_B5, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_C6, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_B5, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_A5, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_G5, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_A5, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_B5, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_C6, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_D6, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_C6, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_B5, 8,
+    BUZZER_NOTE_REST, 2,
+    BUZZER_NOTE_A5, 8,
+    0                      // Fin de la mélodie
+};
+
+// SIGNAL_TUNE_BACH_PRELUDE melody nb 8
+static int8_t bach_prelude[] = {
+    BUZZER_NOTE_G4, 8,        // Première note
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_C5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_E5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_G5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_C6, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_E6, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_G6, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_F6, 8,        // Descente
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_D6, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_B5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_G5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_F5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_D5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_B4, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_G4, 8,
+    BUZZER_NOTE_REST, 8,      // Petite pause
+    BUZZER_NOTE_D4, 8,        // Nouveau motif
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_F4, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_A4, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_D5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_F5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_A5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_G5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_E5, 8,
+    BUZZER_NOTE_REST, 1,
+    BUZZER_NOTE_C5, 8,
+    0                      // Fin de la mélodie
+};
+
+
+
+
 void movement_play_signal(void) {
     void *maybe_disable_buzzer = end_buzzing_and_disable_buzzer;
     if (watch_is_buzzer_or_led_enabled()) {
@@ -351,6 +671,154 @@ void movement_play_signal(void) {
         movement_state.le_mode_ticks = 1;
     }
 }
+
+
+void movement_play_melody_radio(void) {
+    void *maybe_disable_buzzer = end_buzzing_and_disable_buzzer;
+    
+    if (watch_is_buzzer_or_led_enabled()) {
+        maybe_disable_buzzer = end_buzzing;
+    } else {
+        watch_enable_buzzer();
+    }
+    movement_state.is_buzzing = true;
+    watch_buzzer_play_sequence(melody_radio, maybe_disable_buzzer);
+    if (movement_state.le_mode_ticks == -1) {
+        // the watch is asleep. wake it up for "1" round through the main loop.
+        // the sleep_mode_app_loop will notice the is_buzzing and note that it
+        // only woke up to beep and then it will spinlock until the callback
+        // turns off the is_buzzing flag.
+        movement_state.needs_wake = true;
+        movement_state.le_mode_ticks = 1;
+    }
+}
+
+
+void movement_play_melody_star_wars_theme(void) {
+    void *maybe_disable_buzzer = end_buzzing_and_disable_buzzer;
+    
+    if (watch_is_buzzer_or_led_enabled()) {
+        maybe_disable_buzzer = end_buzzing;
+    } else {
+        watch_enable_buzzer();
+    }
+    movement_state.is_buzzing = true;
+    watch_buzzer_play_sequence(star_wars_theme, maybe_disable_buzzer);
+    if (movement_state.le_mode_ticks == -1) {
+        // the watch is asleep. wake it up for "1" round through the main loop.
+        // the sleep_mode_app_loop will notice the is_buzzing and note that it
+        // only woke up to beep and then it will spinlock until the callback
+        // turns off the is_buzzing flag.
+        movement_state.needs_wake = true;
+        movement_state.le_mode_ticks = 1;
+    }
+}
+
+void movement_play_melody_imperial_march(void) {
+    void *maybe_disable_buzzer = end_buzzing_and_disable_buzzer;
+    
+    if (watch_is_buzzer_or_led_enabled()) {
+        maybe_disable_buzzer = end_buzzing;
+    } else {
+        watch_enable_buzzer();
+    }
+    movement_state.is_buzzing = true;
+    watch_buzzer_play_sequence(imperial_march, maybe_disable_buzzer);
+    if (movement_state.le_mode_ticks == -1) {
+        // the watch is asleep. wake it up for "1" round through the main loop.
+        // the sleep_mode_app_loop will notice the is_buzzing and note that it
+        // only woke up to beep and then it will spinlock until the callback
+        // turns off the is_buzzing flag.
+        movement_state.needs_wake = true;
+        movement_state.le_mode_ticks = 1;
+    }
+}
+
+void movement_play_melody_mission_impossible(void) {
+    void *maybe_disable_buzzer = end_buzzing_and_disable_buzzer;
+    
+    if (watch_is_buzzer_or_led_enabled()) {
+        maybe_disable_buzzer = end_buzzing;
+    } else {
+        watch_enable_buzzer();
+    }
+    movement_state.is_buzzing = true;
+    watch_buzzer_play_sequence(mission_impossible, maybe_disable_buzzer);
+    if (movement_state.le_mode_ticks == -1) {
+        movement_state.needs_wake = true;
+        movement_state.le_mode_ticks = 1;
+    }
+}
+
+
+void movement_play_melody_take_five(void) {
+    void *maybe_disable_buzzer = end_buzzing_and_disable_buzzer;
+    
+    if (watch_is_buzzer_or_led_enabled()) {
+        maybe_disable_buzzer = end_buzzing;
+    } else {
+        watch_enable_buzzer();
+    }
+    movement_state.is_buzzing = true;
+    watch_buzzer_play_sequence(take_five, maybe_disable_buzzer);
+    if (movement_state.le_mode_ticks == -1) {
+        movement_state.needs_wake = true;
+        movement_state.le_mode_ticks = 1;
+    }
+}
+
+
+
+void movement_play_melody_tubular_bells(void) {
+    void *maybe_disable_buzzer = end_buzzing_and_disable_buzzer;
+    
+    if (watch_is_buzzer_or_led_enabled()) {
+        maybe_disable_buzzer = end_buzzing;
+    } else {
+        watch_enable_buzzer();
+    }
+    movement_state.is_buzzing = true;
+    watch_buzzer_play_sequence(tubular_bells, maybe_disable_buzzer);
+    if (movement_state.le_mode_ticks == -1) {
+        movement_state.needs_wake = true;
+        movement_state.le_mode_ticks = 1;
+    }
+}
+
+void movement_play_melody_oxygene(void) {
+    void *maybe_disable_buzzer = end_buzzing_and_disable_buzzer;
+    
+    if (watch_is_buzzer_or_led_enabled()) {
+        maybe_disable_buzzer = end_buzzing;
+    } else {
+        watch_enable_buzzer();
+    }
+    movement_state.is_buzzing = true;
+    watch_buzzer_play_sequence(oxygene, maybe_disable_buzzer);
+    if (movement_state.le_mode_ticks == -1) {
+        movement_state.needs_wake = true;
+        movement_state.le_mode_ticks = 1;
+    }
+}
+
+
+void movement_play_melody_bach_prelude(void) {
+    void *maybe_disable_buzzer = end_buzzing_and_disable_buzzer;
+    
+    if (watch_is_buzzer_or_led_enabled()) {
+        maybe_disable_buzzer = end_buzzing;
+    } else {
+        watch_enable_buzzer();
+    }
+    movement_state.is_buzzing = true;
+    watch_buzzer_play_sequence(bach_prelude, maybe_disable_buzzer);
+    if (movement_state.le_mode_ticks == -1) {
+        movement_state.needs_wake = true;
+        movement_state.le_mode_ticks = 1;
+    }
+}
+
+
 
 void movement_play_alarm(void) {
     movement_play_alarm_beeps(5, BUZZER_NOTE_C8);

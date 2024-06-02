@@ -26,7 +26,7 @@
 #include "preferences_face.h"
 #include "watch.h"
 
-#define PREFERENCES_FACE_NUM_PREFEFENCES (8) // Now it is 8 with LANG
+#define PREFERENCES_FACE_NUM_PREFEFENCES (9) // Now it is 8 with LANG - Now 9 with Tune selection
 const char preferences_face_titles[PREFERENCES_FACE_NUM_PREFEFENCES][11] = {
     "CL        ",   // Clock: 12 or 24 hour
     "BT  Beep  ",   // Buttons: should they beep?
@@ -39,8 +39,12 @@ const char preferences_face_titles[PREFERENCES_FACE_NUM_PREFEFENCES][11] = {
     "LT   grn  ",   // Light: green component
 #endif
     "LT   red  ",   // Light: red component
-    "LANG      "    // Language: select the display language
+    "LANG      ",   // Language: select the display language
+    "Tune      "    // Tune: select normal tune or 7 tunes depending on the hour of the day
 };
+
+
+int zz_top_tune = 0;
 
 void preferences_face_setup(movement_settings_t *settings, uint8_t watch_face_index, void ** context_ptr) {
     (void) settings;
@@ -98,6 +102,9 @@ bool preferences_face_loop(movement_event_t event, movement_settings_t *settings
                     break;
                 case 7:
                     settings->bit.language = (settings->bit.language + 1) % 13; // Max depending on the number of languages
+                    break;
+                case 8:
+                    settings->bit.tune = (settings->bit.tune + 1) % 2; // tune selection
                     break;
             }
             break;
@@ -173,6 +180,11 @@ bool preferences_face_loop(movement_event_t event, movement_settings_t *settings
                     case 12: watch_display_string("FRIDAY", 4); break;
                 }
                 break;
+            case 8:
+                switch (settings->bit.tune) {
+                    case 0: watch_display_string("normal", 4); break;
+                    case 1: watch_display_string(" power", 4); break;
+                }
         }
     }
 

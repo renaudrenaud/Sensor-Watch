@@ -25,8 +25,11 @@
 #include <stdlib.h>
 #include "simple_clock_face.h"
 #include "watch.h"
+#include "watch_buzzer.h"
 #include "watch_utility.h"
 #include "watch_private_display.h"
+#include "movement_custom_signal_tunes.h"
+// #include "movement.c"
 
 static void _update_alarm_indicator(bool settings_alarm_enabled, simple_clock_state_t *state) {
     state->alarm_enabled = settings_alarm_enabled;
@@ -135,8 +138,48 @@ bool simple_clock_face_loop(movement_event_t event, movement_settings_t *setting
             break;
         case EVENT_BACKGROUND_TASK:
             // uncomment this line to snap back to the clock face when the hour signal sounds:
-            // movement_move_to_face(state->watch_face_index);
-            movement_play_signal();
+            movement_move_to_face(state->watch_face_index);
+            // RC
+            if (settings->bit.tune == 0) {
+                movement_play_signal();
+            } else {
+                watch_date_time date_time = watch_rtc_get_date_time();
+                switch (date_time.unit.hour) {
+                    case 7:
+                        movement_play_melody_mission_impossible();
+                        break;
+                    case 9:
+                        movement_play_melody_imperial_march();
+                        break;
+                    case 14:
+                        movement_play_melody_imperial_march();
+                        break;
+                    case 17:
+                        movement_play_melody_take_five();
+                        break;
+                    case 12:
+                    case 18:
+                        movement_play_melody_bach_prelude();
+                    case 19:
+                    case 20:
+                        movement_play_melody_bach_prelude();
+                        break;
+                    case 21:
+                        movement_play_melody_oxygene();
+                        break;
+                    case 22:
+                        movement_play_melody_star_wars_theme();
+                        break;
+                    case 23:
+                        movement_play_melody_tubular_bells();
+                        break;
+                    default:
+                        movement_play_signal();
+                        break;
+                }
+            }
+            // movement_play_melody_sig_1();
+
             break;
         default:
             return movement_default_loop_handler(event, settings);

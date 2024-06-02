@@ -58,7 +58,8 @@ typedef union {
         bool use_imperial_units : 1;        // indicates whether to use metric units (the default) or imperial.
         bool alarm_enabled : 1;             // indicates whether there is at least one alarm enabled.
         uint8_t language : 4;               // 0 to 15, representing different languages.
-        uint8_t reserved : 2;               // room for more preferences if needed.
+        uint8_t tune : 1;                   // hourly tune, normal or 7 tunes depending on hour of day.
+        uint8_t reserved : 1;               // room for more preferences if needed.
     } bit;
     uint32_t reg;
 } movement_settings_t;
@@ -73,6 +74,7 @@ typedef union {
     } bit;
     uint32_t reg;
 } movement_location_t;
+
 
 // movement_birthdate_t is for storing the user's birth date. This will be useful for calculating the user's age — or
 // hey, playing happy birthday at midnight? Fields for birth time (with hour and minute resolution) are also available,
@@ -303,6 +305,15 @@ void movement_cancel_background_task_for_face(uint8_t watch_face_index);
 void movement_request_wake(void);
 
 void movement_play_signal(void);
+void movement_play_melody_radio(void);
+void movement_play_melody_star_wars_theme(void); 
+void movement_play_melody_imperial_march(void);
+void movement_play_melody_mission_impossible(void);
+void movement_play_melody_take_five(void);
+void movement_play_melody_tubular_bells(void);
+void movement_play_melody_oxygene(void);
+void movement_play_melody_bach_prelude(void);
+
 void movement_play_alarm(void);
 void movement_play_alarm_beeps(uint8_t rounds, BuzzerNote alarm_note);
 
