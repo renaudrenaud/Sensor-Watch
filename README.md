@@ -1,6 +1,15 @@
 The Sensor Watch
 ================
 
+The Sensor Watch is a beautiful project by Joey Castillo. I've forked the main branch to add my own code. Joey Castillo c++ code is first class. My C++ skills are near zero, and I use this project to progress. Please use "at your own risk, bla bla bla," but it is so fun to try.
+
+I've added this:
+
+The ability to choose the language for the days in 13 different languages (12 real languages, with the 13th being "Friday language" where every day is Friday, the 13th, Friday the 13th).
+The ability to select the standard chime (2 notes played every hour) or 7 different melodies depending on the hour of the day. For example, 09:00 is coffee time, so the Darth Vader theme is played. 05:00 is the occasion to play "Take Five."
+
+-----
+
 The [Sensor Watch](https://www.sensorwatch.net) is a board replacement for the classic Casio F-91W wristwatch. It is powered by a Microchip SAM L22 microcontroller with built-in segment LCD controller. You can write your own programs for the watch using the provided watch library, program the watch over USB using the built-in UF2 bootloader, and then install the board in your existing watch case to run your own software on your wrist.
 
 ![image](/images/sensor-watch.jpg)
