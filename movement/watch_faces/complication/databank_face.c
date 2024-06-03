@@ -29,6 +29,7 @@
 #include "watch_private_display.h"
 
 const char *pi_data[] = {
+    "VE", "1.1.1",
     "CC", "196505151975",
     "CP", "ZZ62T36OP9123",
     "US", "CATH490R14E15N22A",
