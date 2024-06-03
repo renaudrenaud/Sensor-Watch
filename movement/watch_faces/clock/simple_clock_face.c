@@ -90,9 +90,9 @@ bool simple_clock_face_loop(movement_event_t event, movement_settings_t *setting
                 watch_enable_adc();
                 uint16_t voltage = watch_get_vcc_voltage();
                 watch_disable_adc();
-                // 2.2 volts will happen when the battery has maybe 5-10% remaining?
+                // 2.3 volts will happen when the battery has maybe 5-10% remaining?
                 // we can refine this later.
-                state->battery_low = (voltage < 2200);
+                state->battery_low = (voltage < 2300);
             }
 
             // ...and set the LAP indicator if low.
@@ -145,6 +145,9 @@ bool simple_clock_face_loop(movement_event_t event, movement_settings_t *setting
             } else {
                 watch_date_time date_time = watch_rtc_get_date_time();
                 switch (date_time.unit.hour) {
+                    case 0:
+                        movement_play_signal();
+                        break;
                     case 7:
                         movement_play_melody_mission_impossible();
                         break;
@@ -160,6 +163,7 @@ bool simple_clock_face_loop(movement_event_t event, movement_settings_t *setting
                     case 12:
                     case 18:
                         movement_play_melody_bach_prelude();
+                        break;
                     case 19:
                     case 20:
                         movement_play_melody_bach_prelude();
