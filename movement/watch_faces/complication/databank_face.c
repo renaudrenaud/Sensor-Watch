@@ -29,9 +29,9 @@
 #include "watch_private_display.h"
 
 const char *pi_data[] = {
-    "CB", "0515",
-    "SG", "62369123",
-    "CP", "490141522",
+    "CC", "196505151975",
+    "CP", "ZZ62T36OP9123",
+    "US", "CATH490R14E15N22A",
 };
 //we show 6 characters per screen
 
